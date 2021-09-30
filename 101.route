@@ -1,0 +1,14 @@
+#!/bin/bash
+
+/sbin/ip route delete default
+/sbin/ip route add default via 10.0.2.2 dev eth0 proto dhcp metric 100
+
+/sbin/ip route delete 10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 
+/sbin/ip route add 10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 metric 100                    
+####
+/sbin/ip route add default via 10.0.2.2 table 101
+/sbin/ip route add 10.0.2.0/24 dev eth0 src 10.0.2.15 table 101
+
+
+#/sbin/ip route add default via 10.0.2.2 dev eth0 table 101
+#/sbin/ip route add 10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 metric 100 table 101

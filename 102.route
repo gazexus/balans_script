@@ -1,0 +1,16 @@
+#!/bin/bash
+
+/sbin/ip route delete default
+/sbin/ip route add default via 172.18.0.5 dev eth1 proto static metric 102
+
+
+/sbin/ip route delete 172.18.0.0/24 dev eth1 proto kernel scope link src 172.18.0.4
+/sbin/ip route add 172.18.0.0/24 dev eth1 proto kernel scope link src 172.18.0.4 metric 102
+
+
+/sbin/ip route add default via 172.18.0.5 table 102
+/sbin/ip route add 172.18.0.0/24 dev eth1 src 172.18.0.4 table 102
+
+#/sbin/ip route add default via 172.18.0.5 dev eth1 proto static table 102
+#/sbin/ip route add 172.18.0.0/24 dev eth1 proto kernel scope link src 172.18.0.4 metric 101 table 102
+/bin/bash /home/geek/rules
